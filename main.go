@@ -3,6 +3,10 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
+
+	"api-test/app"
+	"api-test/controllers"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
@@ -10,9 +14,16 @@ import (
 
 func main() {
 	r := mux.NewRouter()
+	r.Use(app.JwtAuthentication)
+	port := os.Getenv("app_port")
+	if port == "" {
+		port = "8083" //localhost
+	}
 	api := r.PathPrefix("/api/v1").Subrouter()
-	api.HandleFunc("", students.createStudent.Methods(http.MethodPost)
-	api.HandleFunc("", students.getAllStudents).Methods(http.MethodGet)
-	api.HandleFunc("", students.updateStudent).Methods(http.MethodPut)
-	log.Fatal(http.ListenAndServe(":8083", r))
+	api.HandleFunc("/user/login", controllers.Authenticate).Methods("POST")
+	api.HandleFunc("/user/new", controllers.CreateAccount).Methods("POST")
+	api.HandleFunc("/students", controllers.GetAllStudents).Methods("GET")
+	api.HandleFunc("/students/{doc_num}", controllers.GetStudentByDocument).Methods("GET")
+	api.HandleFunc("/students/new", controllers.CreateStudent).Methods("POST")
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }
