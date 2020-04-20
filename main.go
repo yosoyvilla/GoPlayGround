@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -13,6 +14,7 @@ import (
 )
 
 func main() {
+	fmt.Println("First  Main!")
 	r := mux.NewRouter()
 	r.Use(app.JwtAuthentication)
 	port := os.Getenv("app_port")
