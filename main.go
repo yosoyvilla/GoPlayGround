@@ -15,7 +15,7 @@ import (
 func main() {
 	r := mux.NewRouter()
 	r.Use(app.JwtAuthentication)
-	port := os.Getenv("app_port") || os.Getenv("PORT")
+	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8083" //localhost
 	}
