@@ -21,6 +21,7 @@ func main() {
 	if port == "" {
 		port = "8083" //localhost
 	}
+	fmt.Println("Second  Main!")
 	api := r.PathPrefix("/api/v1").Subrouter()
 	api.HandleFunc("/user/login", controllers.Authenticate).Methods("POST")
 	api.HandleFunc("/user/new", controllers.CreateAccount).Methods("POST")
@@ -28,4 +29,5 @@ func main() {
 	api.HandleFunc("/students/{doc_num}", controllers.GetStudentByDocument).Methods("GET")
 	api.HandleFunc("/students/new", controllers.CreateStudent).Methods("POST")
 	log.Fatal(http.ListenAndServe(":"+port, r))
+	fmt.Println("Third  Main!")
 }
