@@ -24,6 +24,7 @@ func init() {
 	dbHost := os.Getenv("db_host")
 	dbPort := os.Getenv("db_port")
 	dBType := os.Getenv("db_type")
+	dbUri = ""
 
 	if dBType == "mysql" {
 		dbUri := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, dbHost, dbPort, dbName) //Build connection string
