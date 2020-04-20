@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 
@@ -28,6 +27,9 @@ func main() {
 	api.HandleFunc("/students", controllers.GetAllStudents).Methods("GET")
 	api.HandleFunc("/students/{doc_num}", controllers.GetStudentByDocument).Methods("GET")
 	api.HandleFunc("/students/new", controllers.CreateStudent).Methods("POST")
-	log.Fatal(http.ListenAndServe(":"+port, r))
+	err := http.ListenAndServe(":"+port, r)
+	if err != nil {
+		fmt.Print(err)
+	}
 	fmt.Println("Third  Main!")
 }
