@@ -21,7 +21,7 @@ func main() {
 	}
 	api := r.PathPrefix("/api/v1").Subrouter()
 	api.HandleFunc("/user/login", controllers.Authenticate).Methods("POST")
-	api.HandleFunc("/user/new", controllers.CreateAccount).Methods("POST")
+	r.HandleFunc("/user/new", controllers.CreateAccount).Methods("POST")
 	api.HandleFunc("/students", controllers.GetAllStudents).Methods("GET")
 	api.HandleFunc("/students/{doc_num}", controllers.GetStudentByDocument).Methods("GET")
 	api.HandleFunc("/students/new", controllers.CreateStudent).Methods("POST")
