@@ -28,7 +28,7 @@ func main() {
 	api.HandleFunc("/students/{doc_num}", controllers.GetStudentByDocument).Methods("GET")
 	api.HandleFunc("/students/new", controllers.CreateStudent).Methods("POST")
 	fmt.Println("Third  Main!")
-	portd := ":" + os.Getenv("PORT")
+	portd := os.Getenv("PORT")
 	err := http.ListenAndServe(":"+portd, r)
 	fmt.Println("Fourth  Main!")
 	if err != nil {
